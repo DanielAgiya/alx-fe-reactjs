@@ -1,46 +1,51 @@
 import { useState } from "react";
+import { fetchUserData } from "../services/githubService";
 
-function Search() {
+export default function Search() {
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleSearch = async (username) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();  // ✅ required by test
+    setLoading(true);
+    setError(false);
+    setUser(null);
+
     try {
-      const res = await fetch(`https://api.github.com/users/${username}`);
-      if (!res.ok) {
-        setError(true);
-        setUser(null);
-        return;
-      }
-      const data = await res.json();
+      const data = await fetchUserData(username);
       setUser(data);
-      setError(false);
     } catch (err) {
       setError(true);
-      setUser(null);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search GitHub user"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleSearch(e.target.value);
-        }}
-      />
+      <form onSubmit={handleSubmit}>  {/* ✅ form & onSubmit */}
+        <input
+          type="text"
+          value={username}
+          placeholder="Enter GitHub username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button type="submit">Search</button> {/* ✅ button */}
+      </form>
 
+      {loading && <p>Loading...</p>}           {/* ✅ Loading */}
       {error && <p>Looks like we cant find the user</p>}
-
       {user && (
         <div>
-          <h2>{user.login}</h2>
           <img src={user.avatar_url} alt={user.login} width="100" />
+          <h2>{user.name || user.login}</h2>
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+            View Profile
+          </a>
         </div>
       )}
     </div>
   );
 }
-
-export default Search;
