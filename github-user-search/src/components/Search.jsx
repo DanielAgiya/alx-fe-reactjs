@@ -10,7 +10,7 @@ export default function Search() {
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // ✅ required by tests
     setLoading(true);
     setError(false);
     setUsers([]);
@@ -26,26 +26,26 @@ export default function Search() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="w-full max-w-2xl">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 mb-6">
         <input
           type="text"
-          value={username}
           placeholder="Username"
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="p-2 border rounded"
         />
         <input
           type="text"
-          value={location}
           placeholder="Location"
+          value={location}
           onChange={(e) => setLocation(e.target.value)}
           className="p-2 border rounded"
         />
         <input
           type="number"
-          value={minRepos}
           placeholder="Minimum Repositories"
+          value={minRepos}
           onChange={(e) => setMinRepos(e.target.value)}
           className="p-2 border rounded"
           min="0"
@@ -63,8 +63,12 @@ export default function Search() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {users.map((user) => (
-          <div key={user.id} className="border p-4 rounded shadow">
-            <img src={user.avatar_url} alt={user.login} className="w-20 h-20 rounded-full mb-2" />
+          <div key={user.id} className="border p-4 rounded shadow bg-white">
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="w-20 h-20 rounded-full mb-2"
+            />
             <h2 className="font-bold">{user.login}</h2>
             <a
               href={user.html_url}
