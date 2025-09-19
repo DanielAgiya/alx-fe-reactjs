@@ -1,11 +1,10 @@
-import React from "react";
-import SearchBar from "./components/SearchBar";
+import Search from "./components/Search";
 
 function App() {
   return (
     <div>
-      <h1>Welcome to GitHub User Search</h1>
-      <SearchBar />
+      <h1 style={{ textAlign: "center" }}>GitHub User Search</h1>
+      <Search />
     </div>
   );
 }
