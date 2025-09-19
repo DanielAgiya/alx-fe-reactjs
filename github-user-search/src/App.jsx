@@ -1,8 +1,11 @@
+import React from "react";
+import SearchBar from "./components/SearchBar";
+
 function App() {
   return (
     <div>
-      <h1>GitHub User Search</h1>
-      <p>Start building your search feature here...</p>
+      <h1>Welcome to GitHub User Search</h1>
+      <SearchBar />
     </div>
   );
 }
