@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchAdvancedUsers } from "../services/githubService";
+import { fetchUserData } from "../services/githubService"; // ✅ updated
 
 export default function Search() {
   const [username, setUsername] = useState("");
@@ -10,13 +10,13 @@ export default function Search() {
   const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // ✅ required by tests
+    e.preventDefault();
     setLoading(true);
     setError(false);
     setUsers([]);
 
     try {
-      const data = await fetchAdvancedUsers({ username, location, minRepos });
+      const data = await fetchUserData({ username, location, minRepos }); // ✅ updated
       setUsers(data);
     } catch (err) {
       setError(true);
