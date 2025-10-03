@@ -33,6 +33,7 @@ export default function AddRecipeForm() {
       setErrors(validationErrors);
       return;
     }
+
     console.log("Form submitted", formData);
     // Reset form
     setFormData({ title: "", ingredients: "", steps: "" });
@@ -40,12 +41,12 @@ export default function AddRecipeForm() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-lg mt-6">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add New Recipe</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Title */}
+    <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+      <h2 className="text-2xl font-bold mb-6 text-center">Add New Recipe</h2>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Recipe Title */}
         <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="title">
+          <label htmlFor="title" className="block text-gray-700 font-medium mb-2">
             Recipe Title
           </label>
           <input
@@ -64,7 +65,7 @@ export default function AddRecipeForm() {
 
         {/* Ingredients */}
         <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="ingredients">
+          <label htmlFor="ingredients" className="block text-gray-700 font-medium mb-2">
             Ingredients (separate by commas)
           </label>
           <textarea
@@ -82,9 +83,9 @@ export default function AddRecipeForm() {
           )}
         </div>
 
-        {/* Steps */}
+        {/* Preparation Steps */}
         <div>
-          <label className="block text-gray-700 font-medium mb-2" htmlFor="steps">
+          <label htmlFor="steps" className="block text-gray-700 font-medium mb-2">
             Preparation Steps
           </label>
           <textarea
