@@ -1,17 +1,17 @@
 import { useState } from "react";
 import "./App.css";
 
-export default function App() {
+function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
 
-  // ✅ Load API key from .env
+  // ✅ Import your API key from the .env file
   const apiKey = import.meta.env.VITE_API_KEY;
 
-  // 🔍 Fetch weather data
+  // 🔍 Function to fetch weather data
   const fetchWeather = async () => {
-    if (!city.trim()) {
+    if (!city) {
       setError("Please enter a city name");
       setWeather(null);
       return;
@@ -19,20 +19,19 @@ export default function App() {
 
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${apiKey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
       );
-
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.cod === 200) {
         setWeather(data);
         setError("");
       } else {
-        setError(data.message || "City not found. Please try again.");
+        setError("City not found. Please try again.");
         setWeather(null);
       }
-    } catch (err) {
-      setError("Unable to fetch weather data. Check your connection.");
+    } catch (error) {
+      setError("Unable to fetch weather data. Please check your connection.");
       setWeather(null);
     }
   };
@@ -48,9 +47,9 @@ export default function App() {
         <input
           type="text"
           placeholder="Enter city name..."
+          className="px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
         />
         <button
           onClick={fetchWeather}
@@ -93,3 +92,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
