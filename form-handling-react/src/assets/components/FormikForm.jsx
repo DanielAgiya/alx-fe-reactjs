@@ -2,45 +2,41 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const validationSchema = Yup.object({
-  username: Yup.string().required("Username is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().min(6, "Password too short").required("Password is required"),
-});
+const FormikForm = () => {
+  const validationSchema = Yup.object({
+    username: Yup.string().required("Username is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  });
 
-export default function FormikForm() {
   return (
-    <div>
-      <h2>Formik Registration Form</h2>
+    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg">
+      <h2 className="text-xl font-bold mb-4">Formik Registration Form</h2>
       <Formik
         initialValues={{ username: "", email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log("Form data:", values);
-          alert("Registration successful!");
+          console.log("Formik submitted:", values);
         }}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form>
-            <div>
-              <label>Username:</label>
-              <Field type="text" name="username" />
-              <ErrorMessage name="username" component="div" />
+            <div className="mb-3">
+              <Field name="username" type="text" placeholder="Username" className="border p-2 w-full" />
+              <ErrorMessage name="username" component="p" className="text-red-500 text-sm" />
             </div>
 
-            <div>
-              <label>Email:</label>
-              <Field type="email" name="email" />
-              <ErrorMessage name="email" component="div" />
+            <div className="mb-3">
+              <Field name="email" type="email" placeholder="Email" className="border p-2 w-full" />
+              <ErrorMessage name="email" component="p" className="text-red-500 text-sm" />
             </div>
 
-            <div>
-              <label>Password:</label>
-              <Field type="password" name="password" />
-              <ErrorMessage name="password" component="div" />
+            <div className="mb-3">
+              <Field name="password" type="password" placeholder="Password" className="border p-2 w-full" />
+              <ErrorMessage name="password" component="p" className="text-red-500 text-sm" />
             </div>
 
-            <button type="submit" disabled={isSubmitting}>
+            <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
               Submit
             </button>
           </Form>
@@ -48,4 +44,6 @@ export default function FormikForm() {
       </Formik>
     </div>
   );
-}
+};
+
+export default FormikForm;
