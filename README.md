@@ -1,14 +1,12 @@
-# React Router Advanced
+# ALX React Router Advanced Project
 
-This project demonstrates advanced routing in React using **React Router DOM**.
+This project demonstrates **Advanced Routing in React** using `react-router-dom`.  
+It includes examples of **nested routes**, **dynamic routes**, and **protected routes**.
 
-## Features
-- Nested routes for Profile sections
-- Dynamic routing for user-generated content
-- Protected routes requiring authentication
-- Redirect for unmatched routes
+---
 
-## Setup
-1. Clone the repo
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
+## 🚀 Project Setup
+
+### 1️⃣ Install dependencies
+```bash
+npm install
