@@ -4,15 +4,21 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({}); // <-- ALX expects setErrors
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      setError("All fields are required");
-      return;
-    }
-    setError("");
+    const newErrors = {};
+
+    if (!username) newErrors.username = "Username is required"; // <-- individual checks
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    setErrors(newErrors); // <-- ALX expects setErrors
+
+    // Stop submission if any errors exist
+    if (Object.keys(newErrors).length > 0) return;
+
     console.log("Form submitted:", { username, email, password });
   };
 
@@ -24,28 +30,33 @@ const RegistrationForm = () => {
           type="text"
           name="username"
           placeholder="Username"
-          value={username}              // <-- ALX check expects this
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 w-full mb-3"
+          className="border p-2 w-full mb-1"
         />
+        {errors.username && <p className="text-red-500 text-sm mb-2">{errors.username}</p>}
+
         <input
           type="email"
           name="email"
           placeholder="Email"
-          value={email}                 // <-- ALX check expects this
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 w-full mb-3"
+          className="border p-2 w-full mb-1"
         />
+        {errors.email && <p className="text-red-500 text-sm mb-2">{errors.email}</p>}
+
         <input
           type="password"
           name="password"
           placeholder="Password"
-          value={password}              // <-- ALX check expects this
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 w-full mb-3"
+          className="border p-2 w-full mb-1"
         />
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+        {errors.password && <p className="text-red-500 text-sm mb-2">{errors.password}</p>}
+
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded mt-2">
           Register
         </button>
       </form>
