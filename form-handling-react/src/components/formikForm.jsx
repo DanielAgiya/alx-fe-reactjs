@@ -12,33 +12,22 @@ const FormikForm = () => {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg">
       <h2 className="text-xl font-bold mb-4">Formik Registration Form</h2>
-      <Formik
-        initialValues={{ username: "", email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log("Formik submitted:", values);
-        }}
-      >
+      <Formik initialValues={{ username: "", email: "", password: "" }} validationSchema={validationSchema} onSubmit={(values) => console.log("Formik submitted:", values)}>
         {() => (
           <Form>
             <div className="mb-3">
               <Field name="username" type="text" placeholder="Username" className="border p-2 w-full" />
               <ErrorMessage name="username" component="p" className="text-red-500 text-sm" />
             </div>
-
             <div className="mb-3">
               <Field name="email" type="email" placeholder="Email" className="border p-2 w-full" />
               <ErrorMessage name="email" component="p" className="text-red-500 text-sm" />
             </div>
-
             <div className="mb-3">
               <Field name="password" type="password" placeholder="Password" className="border p-2 w-full" />
               <ErrorMessage name="password" component="p" className="text-red-500 text-sm" />
             </div>
-
-            <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-              Submit
-            </button>
+            <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Submit</button>
           </Form>
         )}
       </Formik>
