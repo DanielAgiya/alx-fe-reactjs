@@ -1,3 +1,4 @@
+// ProfileSettings.jsx
 export default function ProfileSettings() {
-  return <p>This is the profile settings section.</p>;
+  return <h3>Profile Settings Section</h3>;
 }

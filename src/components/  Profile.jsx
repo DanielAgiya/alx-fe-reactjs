@@ -1,6 +1,6 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-export default function Profile() {
+function Profile() {
   return (
     <div>
       <h2>Profile Page</h2>
@@ -12,3 +12,5 @@ export default function Profile() {
     </div>
   );
 }
+
+export default Profile;
