@@ -1,4 +1,3 @@
-// src/components/TodoList.jsx
 import React, { useState } from "react";
 
 export default function TodoList() {
