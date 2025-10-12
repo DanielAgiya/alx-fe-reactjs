@@ -5,15 +5,12 @@ export default function TodoList() {
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build Todo App", completed: false }
   ]);
-  const [inputText, setInputText] = useState("");
+  const [input, setInput] = useState("");
 
   const addTodo = () => {
-    if (inputText.trim() === "") return;
-    setTodos([
-      ...todos,
-      { id: Date.now(), text: inputText, completed: false }
-    ]);
-    setInputText("");
+    if (!input.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: input, completed: false }]);
+    setInput("");
   };
 
   const toggleTodo = (id) => {
@@ -32,8 +29,8 @@ export default function TodoList() {
     <div>
       <input
         placeholder="Add new todo"
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={addTodo}>Add</button>
       <ul>
@@ -46,12 +43,7 @@ export default function TodoList() {
             }}
           >
             {todo.text}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteTodo(todo.id);
-              }}
-            >
+            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id); }}>
               Delete
             </button>
           </li>
