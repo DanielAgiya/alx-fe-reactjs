@@ -1,34 +1,29 @@
 import React, { useState } from "react";
 
-function TodoList() {
+const TodoList = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a Todo App", completed: false },
+    { id: 2, text: "Build Todo App", completed: false }
   ]);
-  const [inputValue, setInputValue] = useState("");
+  const [newTodo, setNewTodo] = useState("");
 
   const addTodo = (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
-    const newTodo = {
-      id: Date.now(),
-      text: inputValue,
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
-    setInputValue("");
+    if (!newTodo) return;
+    setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
+    setNewTodo("");
   };
 
   const toggleTodo = (id) => {
     setTodos(
-      todos.map((todo) =>
+      todos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
@@ -37,26 +32,26 @@ function TodoList() {
       <form onSubmit={addTodo}>
         <input
           type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add new todo"
         />
         <button type="submit">Add</button>
       </form>
-
       <ul>
-        {todos.map((todo) => (
+        {todos.map(todo => (
           <li
             key={todo.id}
-            style={{ textDecoration: todo.completed ? "line-through" : "" }}
+            onClick={() => toggleTodo(todo.id)}
+            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
           >
-            <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
+            {todo.text}{" "}
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default TodoList;
